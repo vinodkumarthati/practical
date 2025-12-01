@@ -22,7 +22,7 @@ pipeline {
                 echo "Running Program..."
 
                 // Running with sample inputs (since Jenkins cannot do manual stdin inputs)
-                printf "10\n20\n" | java exp
+                sh 'printf "10\n20\n" | java exp '
 
             }
         }
