@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                echo "Pulling code from GitHub..."
+                git branch: 'main', url: 'https://github.com/vinodkumarthati/practical.git'
+            }
+        }
+
+        stage('Compile Java Program') {
+            steps {
+                echo "Compiling Java Program..."
+                sh 'javac Sum.java'
+            }
+        }
+
+        stage('Run Java Program') {
+            steps {
+                echo "Running Program..."
+
+                // Running with sample inputs (since Jenkins cannot do manual stdin inputs)
+                sh 'echo -e "10\n20" | java Sum'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Build completed successfully!"
+        }
+        failure {
+            echo "Build failed!"
+        }
+    }
+}
